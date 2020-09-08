@@ -4,6 +4,9 @@ const question = document.getElementById("question");
 
 const choices = Array.from(document.getElementsByClassName("choice-text"));
 // console.log("all choices", choices);
+const questionCounterText = document.getElementById("questionCounter");
+const scoreText = document.getElementById("score");
+
 
 let currentQuestion = {};
 let acceptingAnswers = false;
@@ -61,6 +64,11 @@ getNewQuestion = () => {
   }
 
   questionCounter++;
+  // update text HTML - Question nr:
+  // questionCounterText.innerText = questionCounter + "/" + MAX_QUESTIONS
+  // string interpolation:
+  questionCounterText.innerText = `${questionCounter}/${MAX_QUESTIONS}`;
+
   const questionIndex = Math.floor(Math.random() * availableQuestions.length);
   currentQuestion = availableQuestions[questionIndex];
   // put question to HTML:
@@ -85,11 +93,16 @@ choices.forEach((choice) => {
     const selectedChoice = event.target;
     const selectedAnswer = selectedChoice.dataset["number"];
 
-    console.log(selectedAnswer == currentQuestion.answer);
+    // console.log(selectedAnswer == currentQuestion.answer);
 
     // change class based on answer:
     const classToApply = selectedAnswer == currentQuestion.answer ? "correct" : "incorrect";
-    console.log(classToApply);
+    // console.log(classToApply);
+
+    // call incrementScore function and add Bonus points:
+    if (classToApply === "correct") {
+      incrementScore(CORRECT_BONUS);
+    }
 
     selectedChoice.parentElement.classList.add(classToApply)
 
@@ -102,6 +115,12 @@ choices.forEach((choice) => {
 
   });
 });
+
+// update score:
+incrementScore = num => {
+  score += num;
+  scoreText.innerText = score;
+}
 
 startGame();
 
