@@ -52,8 +52,14 @@ startGame = () => {
   getNewQuestion();
 };
 
-// pick upp a question:
+// pick up a question:
 getNewQuestion = () => {
+
+  if (availableQuestions.length === 0 || questionCounter > MAX_QUESTIONS) {
+    // then go to end page:
+    return window.location.assign("../end.html");
+  }
+
   questionCounter++;
   const questionIndex = Math.floor(Math.random() * availableQuestions.length);
   currentQuestion = availableQuestions[questionIndex];
@@ -66,14 +72,23 @@ getNewQuestion = () => {
   });
   // remove from array the question used:
   availableQuestions.splice(questionIndex, 1);
-
+  console.log("questions left in array:", availableQuestions);
   acceptingAnswers = true;
 };
 
+choices.forEach((choice) => {
+  choice.addEventListener("click", (event) => {
+    // console.log("what click event:", event.target);
+    if (!acceptingAnswers) return;
 
+    acceptingAnswers = false;
+    const selectedChoice = event.target;
+    const selectedAnswer = selectedChoice.dataset["number"];
+    console.log("selected answer:", selectedAnswer);
+    getNewQuestion();
+  });
+});
 
 startGame();
-
-
 
 console.log("question counter:", questionCounter);
