@@ -3,7 +3,7 @@ console.log("🎾 -----Quizz----- 🎾");
 const question = document.getElementById("question");
 
 const choices = Array.from(document.getElementsByClassName("choice-text"));
-console.log("all choices", choices);
+// console.log("all choices", choices);
 
 let currentQuestion = {};
 let acceptingAnswers = false;
@@ -72,7 +72,7 @@ getNewQuestion = () => {
   });
   // remove from array the question used:
   availableQuestions.splice(questionIndex, 1);
-  console.log("questions left in array:", availableQuestions);
+  // console.log("questions left in array:", availableQuestions);
   acceptingAnswers = true;
 };
 
@@ -84,8 +84,22 @@ choices.forEach((choice) => {
     acceptingAnswers = false;
     const selectedChoice = event.target;
     const selectedAnswer = selectedChoice.dataset["number"];
-    console.log("selected answer:", selectedAnswer);
-    getNewQuestion();
+
+    console.log(selectedAnswer == currentQuestion.answer);
+
+    // change class based on answer:
+    const classToApply = selectedAnswer == currentQuestion.answer ? "correct" : "incorrect";
+    console.log(classToApply);
+
+    selectedChoice.parentElement.classList.add(classToApply)
+
+    // change back class based on time, then new question:
+    setTimeout( () => {
+      selectedChoice.parentElement.classList.remove(classToApply)
+      getNewQuestion();
+    }, 1500)
+
+
   });
 });
 
