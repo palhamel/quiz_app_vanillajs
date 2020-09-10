@@ -9,7 +9,6 @@ const scoreText = document.getElementById("score");
 // progressBar ref:
 const progressBarFull = document.getElementById("progressBarFull");
 
-
 let currentQuestion = {};
 let acceptingAnswers = false;
 let score = 0;
@@ -53,13 +52,12 @@ startGame = () => {
   questionCounter = 0;
   score = 0;
   availableQuestions = [...questions];
-  console.log("all questions:", availableQuestions);
+  console.log("all questions available in array:", availableQuestions);
   getNewQuestion();
 };
 
 // pick up a question:
 getNewQuestion = () => {
-
   if (availableQuestions.length === 0 || questionCounter > MAX_QUESTIONS) {
     // then go to end page:
     return window.location.assign("../end.html");
@@ -71,13 +69,15 @@ getNewQuestion = () => {
   // string interpolation:
   // questionCounterText.innerText = `${questionCounter}/${MAX_QUESTIONS}`;
   progressText.innerText = `Question ${questionCounter}/${MAX_QUESTIONS}`;
-  // Update progressBar, using % to CSS:
-  console.log((questionCounter / MAX_QUESTIONS) * 100 );
-  progressBarFull.style.width
+
+  // Update ID progressBarFull CSS, using % to pixel width:
+  console.log((questionCounter / MAX_QUESTIONS) * 100);
+  // String concat + adding '%' for CSS to work:
+  progressBarFull.style.width = `${(questionCounter / MAX_QUESTIONS) * 100}%`;
 
   const questionIndex = Math.floor(Math.random() * availableQuestions.length);
   currentQuestion = availableQuestions[questionIndex];
-  // put question to HTML:
+  // put Question to HTML:
   question.innerHTML = currentQuestion.question;
 
   choices.forEach((choice) => {
@@ -102,7 +102,8 @@ choices.forEach((choice) => {
     // console.log(selectedAnswer == currentQuestion.answer);
 
     // change class based on answer:
-    const classToApply = selectedAnswer == currentQuestion.answer ? "correct" : "incorrect";
+    const classToApply =
+      selectedAnswer == currentQuestion.answer ? "correct" : "incorrect";
     // console.log(classToApply);
 
     // call incrementScore function and add Bonus points:
@@ -110,23 +111,21 @@ choices.forEach((choice) => {
       incrementScore(CORRECT_BONUS);
     }
 
-    selectedChoice.parentElement.classList.add(classToApply)
+    selectedChoice.parentElement.classList.add(classToApply);
 
     // change back class based on time, then new question:
-    setTimeout( () => {
-      selectedChoice.parentElement.classList.remove(classToApply)
+    setTimeout(() => {
+      selectedChoice.parentElement.classList.remove(classToApply);
       getNewQuestion();
-    }, 1500)
-
-
+    }, 1500);
   });
 });
 
 // update score:
-incrementScore = num => {
+incrementScore = (num) => {
   score += num;
   scoreText.innerText = score;
-}
+};
 
 startGame();
 
