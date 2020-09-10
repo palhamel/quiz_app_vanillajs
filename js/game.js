@@ -1,11 +1,13 @@
 console.log("🎾 -----Quizz----- 🎾");
 
 const question = document.getElementById("question");
-
 const choices = Array.from(document.getElementsByClassName("choice-text"));
 // console.log("all choices", choices);
-const questionCounterText = document.getElementById("questionCounter");
+// const questionCounterText = document.getElementById("questionCounter");
+const progressText = document.getElementById("progressText");
 const scoreText = document.getElementById("score");
+// progressBar ref:
+const progressBarFull = document.getElementById("progressBarFull");
 
 
 let currentQuestion = {};
@@ -67,7 +69,11 @@ getNewQuestion = () => {
   // update text HTML - Question nr:
   // questionCounterText.innerText = questionCounter + "/" + MAX_QUESTIONS
   // string interpolation:
-  questionCounterText.innerText = `${questionCounter}/${MAX_QUESTIONS}`;
+  // questionCounterText.innerText = `${questionCounter}/${MAX_QUESTIONS}`;
+  progressText.innerText = `Question ${questionCounter}/${MAX_QUESTIONS}`;
+  // Update progressBar, using % to CSS:
+  console.log((questionCounter / MAX_QUESTIONS) * 100 );
+  progressBarFull.style.width
 
   const questionIndex = Math.floor(Math.random() * availableQuestions.length);
   currentQuestion = availableQuestions[questionIndex];
@@ -124,4 +130,4 @@ incrementScore = num => {
 
 startGame();
 
-console.log("question counter:", questionCounter);
+// console.log("question counter:", questionCounter);
