@@ -7,6 +7,25 @@
   <link rel="stylesheet" href="./css/app.css">
 </head>
 <body>
-  <h2>End here</h2>
+  <div class="container">
+    <div id="end" class="flex-center flex-column">
+      <h1 id=finalScore">0</h1>
+      <form>
+        <input 
+          type="text"
+          name="username"
+          id="username"
+          placeholder="username"
+        />
+        <button 
+          type="submit" 
+          class="btn" 
+          id="saveScoreBtn" 
+          onclick="saveHighScore(event)"
+        >Save</button>
+      </form>
+    </div>
+  </div>
+  <script src="./js/end.js">Save</script>
 </body>
 </html>
