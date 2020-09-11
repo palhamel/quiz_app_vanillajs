@@ -7,6 +7,8 @@ const mostRecentScore = localStorage.getItem("mostRecentScore");
 const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
 console.log(highScores);
 
+const MAX_HIGH_SCORES = 5;
+
 finalScore.innerText = mostRecentScore;
 
 username.addEventListener("keyup", () => {
@@ -20,13 +22,27 @@ saveHighScore = (e) => {
   e.preventDefault();
 
   const score = {
-    score: mostRecentScore,
+    // score: mostRecentScore,
+    score: Math.floor(Math.random() * 100),
     name: username.value,
   };
-  highScores.push(score)
-  // sort top 5 score in array:
+  // push to Array:
+  highScores.push(score);
+ // Sort the Array + Keep only top 5:
+  highScores.sort((a, b) => b.score - a.score);
+  highScores.splice(5)
 
+  localStorage.setItem("highScores", JSON.stringify(highScores));
 
+  window.location.assign("/");
 
-  console.log(highScores);
+  console.log("highScores Array:", highScores);
 };
+
+  /*
+  When you pass the function (a, b) => a - b, you’re telling the .sort() function to sort the numbers in ascending order.
+  This is sama as:
+  highScores.sort( (a, b) => {
+    return 
+  })
+  */
