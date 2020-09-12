@@ -9,6 +9,9 @@ const scoreText = document.getElementById("score");
 // progressBar ref:
 const progressBarFull = document.getElementById("progressBarFull");
 
+const api_URL = "https://opentdb.com/api.php?amount=10&category=14&difficulty=easy&type=multiple";
+
+
 let currentQuestion = {};
 let acceptingAnswers = false;
 let score = 0;
@@ -17,15 +20,16 @@ let availableQuestions = [];
 
 let questions = [];
 
-fetch("../json/questions.json")
+fetch(api_URL)
   .then((res) => {
     // console.log("from json;", res);
     return res.json();
   })
   .then((loadedQuestions) => {
-    // console.log(loadedQuestions);
-    questions = loadedQuestions;
-    startGame();
+    console.log(loadedQuestions.results);
+    loadedQuestions.results.map()
+    // questions = loadedQuestions;
+    // startGame();
   })
   .catch(err => {
     console.log(" ❌ Houston, we have a problem:", err);
