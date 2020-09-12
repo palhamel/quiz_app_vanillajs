@@ -9,8 +9,8 @@ const scoreText = document.getElementById("score");
 // progressBar ref:
 const progressBarFull = document.getElementById("progressBarFull");
 
-const api_URL = "https://opentdb.com/api.php?amount=10&category=14&difficulty=easy&type=multiple";
-
+const api_URL =
+  "https://opentdb.com/api.php?amount=3&category=14&difficulty=easy&type=multiple";
 
 let currentQuestion = {};
 let acceptingAnswers = false;
@@ -27,14 +27,32 @@ fetch(api_URL)
   })
   .then((loadedQuestions) => {
     console.log(loadedQuestions.results);
-    loadedQuestions.results.map()
+    questions = loadedQuestions.results.map((loadedQuestion) => {
+      const formattedQuestion = {
+        question: loadedQuestion.question,
+      };
+      const answerChoices = [...loadedQuestion.incorrect_answers];
+      console.log(answerChoices);
+      formattedQuestion.answer = Math.floor(Math.random() * 3) + 1;
+      answerChoices.splice(
+        formattedQuestion.answer - 1,
+        0,
+        loadedQuestion.correct_answer
+      );
+
+      answerChoices.forEach((choice, index) => {
+        formattedQuestion["choice" + (index + 1)] = choice;
+      })
+      // console.log(formattedQuestion);
+      return formattedQuestion;
+    });
+  
     // questions = loadedQuestions;
-    // startGame();
+    startGame();
   })
-  .catch(err => {
+  .catch((err) => {
     console.log(" ❌ Houston, we have a problem:", err);
   });
-
 
 // constants:
 const CORRECT_BONUS = 10;
