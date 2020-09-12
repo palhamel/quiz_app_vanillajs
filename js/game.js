@@ -43,8 +43,7 @@ let questions = [
   },
 ];
 
-// constants
-
+// constants:
 const CORRECT_BONUS = 10;
 const MAX_QUESTIONS = 3;
 

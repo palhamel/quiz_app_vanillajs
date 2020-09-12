@@ -41,7 +41,7 @@ saveHighScore = (e) => {
 
   /*
   When you pass the function (a, b) => a - b, you’re telling the .sort() function to sort the numbers in ascending order.
-  This is sama as:
+  This is same as:
   highScores.sort( (a, b) => {
     return 
   })
