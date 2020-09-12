@@ -9,8 +9,12 @@ const scoreText = document.getElementById("score");
 // progressBar ref:
 const progressBarFull = document.getElementById("progressBarFull");
 
-const api_URL =
-  "https://opentdb.com/api.php?amount=3&category=14&difficulty=easy&type=multiple";
+// loader ref:
+const loader = document.getElementById("loader")
+const game = document.getElementById("game")
+
+// API
+const api_URL = "https://opentdb.com/api.php?amount=3&category=14&difficulty=easy&type=multiple";
 
 let currentQuestion = {};
 let acceptingAnswers = false;
@@ -46,8 +50,9 @@ fetch(api_URL)
       // console.log(formattedQuestion);
       return formattedQuestion;
     });
-  
     // questions = loadedQuestions;
+
+
     startGame();
   })
   .catch((err) => {
@@ -64,6 +69,8 @@ startGame = () => {
   availableQuestions = [...questions];
   console.log("all questions available in array:", availableQuestions);
   getNewQuestion();
+  loader.classList.add("hidden")
+  game.classList.remove("hidden")
 };
 
 // pick up a question:
